@@ -1,0 +1,32 @@
+body {
+    min-width: 357px;
+    overflow-x: hidden;
+}
+
+label {
+    min-width: 100px;
+    float: left;
+}
+
+input[type=text] {
+    min-width: 225px;
+}
+
+#optionsExpander {
+    color: blue;
+    cursor: pointer;
+}
+
+#options {
+    display: none;
+    list-style: none;
+    padding-left: 100px;
+}
+
+#errorLabel {
+    color:red;
+}
+
+#noticeLabel {
+    color: blue;
+}

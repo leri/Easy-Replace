@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Find/Replace</title>
+        <link rel="stylesheet" href="style.css" />
+        <script type="text/javascript" src="Cache.js"></script>
+        <script type="text/javascript" src="Program.js"></script>
+        <script type="text/javascript" src="Element.js"></script>
+        <script type="text/javascript" src="ElementFinder.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+    </head>
+    <body>
+        <span id="errorLabel"></span>
+        <span id="noticeLabel"></span>
+        <div>
+            <label for="needle">Search:</label>
+            <input type="text" name="search" id="needle"/>
+        </div>
+        <div>
+            <label for="replacement">Replace with:</label>
+            <input type="text" name="replacement" id="replacement"/>
+        </div>
+        <div>
+            <label id="optionsLabel">Options <span id="optionsExpander">[+]</span></label>
+        </div>
+        <ul id="options">
+            <li><input type="checkbox" id="matchCase"> Case sensitive</li>
+            <li><input type="checkbox" id="useRegex"> Use RegEx</li>
+        </ul>
+
+        <div>
+            <button id="skipButton">Next</button>
+            <button id="replaceButton">Replace</button>
+            <button id="replaceAllButton">Replace All</button>
+        </div>
+    </body>
+</html>
+
