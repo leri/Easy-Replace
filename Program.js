@@ -55,8 +55,8 @@ function Program() {
         cache = new Cache();
         cache.get('inputs', function (result) {
             var inputs = {};
-			var needleTextBoxId = needleTextBox.getId();
-			var replacementTextBoxId = replacementTextBox.getId();
+            var needleTextBoxId = needleTextBox.getId();
+            var replacementTextBoxId = replacementTextBox.getId();
 
             if (typeof  result === 'undefined') {
                 inputs[needleTextBoxId] = '';
@@ -70,33 +70,33 @@ function Program() {
             needleTextBox.value(inputs[needleTextBoxId]);
             replacementTextBox.value(inputs[replacementTextBoxId]);
         });
-		cache.get('options', function (result) {
-			var matchCaseCheckBoxId = matchCaseCheckBox.getId();
-			var useRegexCheckBoxId = useRegexCheckBox.getId();
-		
-			if (typeof result === 'undefined') {
-				result = { 'visible': false, };
-				result[matchCaseCheckBoxId] = false;
-				result[useRegexCheckBoxId] = false;
-			
-				cache.set('options', result);
-			} else {
-				if (result.visible) {
-					showOptions();
-				} else {
-					hideOptions();
-				}
-				
-				matchCaseCheckBox.checked(result[matchCaseCheckBoxId]);
-				useRegexCheckBox.checked(result[useRegexCheckBoxId]);
-			}
-		});
+        cache.get('options', function (result) {
+            var matchCaseCheckBoxId = matchCaseCheckBox.getId();
+            var useRegexCheckBoxId = useRegexCheckBox.getId();
+        
+            if (typeof result === 'undefined') {
+                result = { 'visible': false, };
+                result[matchCaseCheckBoxId] = false;
+                result[useRegexCheckBoxId] = false;
+            
+                cache.set('options', result);
+            } else {
+                if (result.visible) {
+                    showOptions();
+                } else {
+                    hideOptions();
+                }
+                
+                matchCaseCheckBox.checked(result[matchCaseCheckBoxId]);
+                useRegexCheckBox.checked(result[useRegexCheckBoxId]);
+            }
+        });
     }
 
     function bindEvents() {
         optionsExpander.bind('click', optionsExpanderClicked);
-		matchCaseCheckBox.bind('change', optionsChanged);
-		useRegexCheckBox.bind('change', optionsChanged);
+        matchCaseCheckBox.bind('change', optionsChanged);
+        useRegexCheckBox.bind('change', optionsChanged);
         needleTextBox.bind('blur', inputUpdated);
         replacementTextBox.bind('blur', inputUpdated);
         skipButton.bind('click', commandFired);
@@ -119,26 +119,26 @@ function Program() {
     }
 
     function optionsExpanderClicked(s, e) {
-		var hidden = options.isHidden();
-	
+        var hidden = options.isHidden();
+    
         if (hidden) {
             showOptions();
         } else {
             hideOptions();
         }
-		
-		cache.get('options', function (result) {
-			result.visible = hidden;
-			cache.set('options', result);
-		});
+        
+        cache.get('options', function (result) {
+            result.visible = hidden;
+            cache.set('options', result);
+        });
     }
-	
-	function optionsChanged(s, e) {
-		cache.get('options', function (result) {
-			result[s.getId()] = s.checked();
-			cache.set('options', result);
-		});
-	}
+    
+    function optionsChanged(s, e) {
+        cache.get('options', function (result) {
+            result[s.getId()] = s.checked();
+            cache.set('options', result);
+        });
+    }
 
     function inputUpdated(s, e) {
         cache.get('inputs', function (result) {
@@ -177,16 +177,16 @@ function Program() {
     function cleanUp() {
         noticeLabel.html('');
     }
-	
-	function showOptions() {
-		options.show();
-		optionsExpander.html('[-]');
-	}
-	
-	function hideOptions() {
-		options.hide();
-		optionsExpander.html('[+]');
-	}
+    
+    function showOptions() {
+        options.show();
+        optionsExpander.html('[-]');
+    }
+    
+    function hideOptions() {
+        options.hide();
+        optionsExpander.html('[+]');
+    }
 
     function send(message) {
         if (lastTabId === null) {

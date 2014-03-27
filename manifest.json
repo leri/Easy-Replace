@@ -2,7 +2,7 @@
     "manifest_version": 2,
 
     "name": "Easy Replace",
-	"description": "If you often type large texts on forums and/or blogs I am sure you came across to situation when you need to replace bunch of text.",
+    "description": "If you often type large texts on forums and/or blogs I am sure you came across to situation when you need to replace bunch of text.",
     "version": "0.0.0.1",
 
     "browser_action": {
@@ -15,12 +15,12 @@
             "js": ["content_script.js"]
         }
     ],
-	
-	"icons": {
-		"16": "icon16.png",
-		"48": "icon48.png",
-		"128": "icon128.png"
-	},
+    
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
 
     "permissions": [
         "tabs", "storage"

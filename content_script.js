@@ -137,7 +137,7 @@
                 find(state, replaceables, regex);
             } else if (lastOffsets.activeReplaceableNumber < replaceables.length - 1) {
                 lastOffsets.replacementOffset = 0;
-				lastOffsets.activeReplaceableNumber++;
+                lastOffsets.activeReplaceableNumber++;
 
                 replace(state);
             }

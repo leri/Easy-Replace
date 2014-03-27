@@ -66,12 +66,12 @@ function Element(domElement) {
         }
         return domElement.innerHTML;
     }
-	
-	this.checked = function(val) {
-		if (typeof val !== 'undefined') {
-			domElement.checked = val;
-		}
-		
-		return domElement.checked;
-	}
+    
+    this.checked = function(val) {
+        if (typeof val !== 'undefined') {
+            domElement.checked = val;
+        }
+        
+        return domElement.checked;
+    }
 }
