@@ -13,6 +13,7 @@ function Program() {
     var replacementTextBox;
     var matchCaseCheckBox;
     var useRegexCheckBox;
+    var multilineRegexCheckBox;
     var errorLabel;
     var noticeLabel;
     var skipButton;
@@ -34,6 +35,7 @@ function Program() {
         replacementTextBox = elementFinder.find('#replacement');
         matchCaseCheckBox = elementFinder.find('#matchCase');
         useRegexCheckBox = elementFinder.find('#useRegex');
+        multilineRegexCheckBox = elementFinder.find('#multilineRegex');
         errorLabel = elementFinder.find('#errorLabel');
         noticeLabel = elementFinder.find('#noticeLabel');
         skipButton = elementFinder.find('#skipButton');
@@ -73,11 +75,13 @@ function Program() {
         cache.get('options', function (result) {
             var matchCaseCheckBoxId = matchCaseCheckBox.getId();
             var useRegexCheckBoxId = useRegexCheckBox.getId();
+            var multilineRegexCheckBoxId = multilineRegexCheckBox.getId();
         
             if (typeof result === 'undefined') {
-                result = { 'visible': false, };
+                result = { 'visible': false };
                 result[matchCaseCheckBoxId] = false;
                 result[useRegexCheckBoxId] = false;
+                result[multilineRegexCheckBoxId] = false;
             
                 cache.set('options', result);
             } else {
@@ -89,6 +93,7 @@ function Program() {
                 
                 matchCaseCheckBox.checked(result[matchCaseCheckBoxId]);
                 useRegexCheckBox.checked(result[useRegexCheckBoxId]);
+                multilineRegexCheckBox.checked(result[multilineRegexCheckBoxId]);
             }
         });
     }
@@ -97,6 +102,7 @@ function Program() {
         optionsExpander.bind('click', optionsExpanderClicked);
         matchCaseCheckBox.bind('change', optionsChanged);
         useRegexCheckBox.bind('change', optionsChanged);
+        multilineRegexCheckBox.bind('change', optionsChanged);
         needleTextBox.bind('blur', inputUpdated);
         replacementTextBox.bind('blur', inputUpdated);
         skipButton.bind('click', commandFired);
@@ -156,6 +162,7 @@ function Program() {
                 "needle": needleTextBox.value(),
                 "replacement": replacementTextBox.value(),
                 "useRegex": useRegexCheckBox.checked(),
+                "multilineRegex": multilineRegexCheckBox.checked(),
                 "ignoreCase": !matchCaseCheckBox.checked()
             }
         };

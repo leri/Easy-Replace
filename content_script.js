@@ -202,6 +202,8 @@
 
         if (!state.useRegex) {
             state.needle = state.needle.escapeForRegex();
+        } else if (state.multilineRegex) {
+            flags += 'm';
         }
 
         if (state.ignoreCase) {
