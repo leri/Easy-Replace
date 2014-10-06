@@ -28,35 +28,11 @@
                 , "$"
                 , "|"
             ];
-        var regex = RegExp('[' + specials.join('\\') + ']', 'g');
+        var regex = new RegExp('[' + specials.join('\\') + ']', 'g');
 
         String.prototype.escapeForRegex = function () {
             return this.replace(regex, "\\$&");
         };
-    }());
-
-    (function () {
-        HTMLElement.prototype.findPosition = function () {
-            var currentTop = 0;
-            var that = this;
-            if (that.offsetParent) {
-                do {
-                    currentTop += that.offsetTop;
-                } while (that = that.offsetParent);
-                return currentTop;
-            }
-        }
-
-        HTMLTextAreaElement.prototype.scrollToSelection = function (selectionStart) {
-            var charsPerRow = this.cols;
-            var selectionRow = (selectionStart - (selectionStart % charsPerRow)) / charsPerRow;
-
-            var lineHeight = this.clientHeight / this.rows;
-
-            lineHeight += this.value.substring(0, selectionStart).split("\n").length - 1;
-
-            this.scrollTop = lineHeight * selectionRow;
-        }
     }());
 
     chrome.extension.onMessage.addListener(function (message, v, s) {
@@ -189,7 +165,21 @@
     }
 
     function getReplaceables() {
-        return document.querySelectorAll('textarea, input[type=text], input[type=search]');
+        return querySelectorAllWithIFrames(document, 'textarea, input[type=text], input[type=search]');
+    }
+
+    function querySelectorAllWithIFrames(document, selector) {
+        var items = Array.prototype.slice.call(document.querySelectorAll(selector));
+        var iframes = document.querySelectorAll('iframe');
+
+        for (var i = 0; i < iframes.length; i++) {
+            var iframe = iframes[i];
+            var iframeDoc = iframe.contentWindow.document;
+            var itemsInIframe = querySelectorAllWithIFrames(iframeDoc, selector);
+            items = items.concat(itemsInIframe);
+        }
+
+        return items;
     }
 
     function countOccurrences(replaceables, regex) {
@@ -222,11 +212,34 @@
     }
 
     function scrollToSelection(replaceable) {
-        window.scroll(0, replaceable.findPosition());
+        window.scroll(0, findPosition(replaceable));
 
-        if (replaceable instanceof HTMLTextAreaElement) {
-            replaceable.scrollToSelection(replaceable.selectionStart);
+        if (replaceable.constructor.name == 'HTMLTextAreaElement') {
+            scrollToSelectionInTextArea(replaceable, replaceable.selectionStart);
         }
+    }
+
+    function findPosition(elem) {
+        var currentTop = 0;
+
+        if (elem.offsetParent) {
+            do {
+                currentTop += elem.offsetTop;
+            } while (elem = elem.offsetParent);
+        }
+
+        return currentTop;
+    }
+
+    function scrollToSelectionInTextArea(elem, selectionStart) {
+        var charsPerRow = elem.cols;
+        var selectionRow = (selectionStart - (selectionStart % charsPerRow)) / charsPerRow;
+
+        var lineHeight = elem.clientHeight / elem.rows;
+
+        lineHeight += elem.value.substring(0, selectionStart).split("\n").length - 1;
+
+        elem.scrollTop = lineHeight * selectionRow;
     }
 
     function send(message) {
