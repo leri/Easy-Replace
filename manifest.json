@@ -3,7 +3,7 @@
 
     "name": "Easy Replace",
     "description": "If you often type large texts on forums and/or blogs I am sure you came across to situation when you need to replace bunch of text.",
-    "version": "0.0.0.1",
+    "version": "0.0.0.2",
 
     "browser_action": {
         "default_icon": "icon.png",
