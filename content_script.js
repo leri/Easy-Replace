@@ -237,6 +237,9 @@
         var charsPerRow = elem.cols;
         var selectionRow = (selectionStart - (selectionStart % charsPerRow)) / charsPerRow;
 
+        var textBeforeSelection = elem.value.substring(0, selectionStart);
+        selectionRow += textBeforeSelection.split("\n").length - 1;
+
         var lineHeight = elem.clientHeight / elem.rows;
 
         lineHeight += elem.value.substring(0, selectionStart).split("\n").length - 1;
