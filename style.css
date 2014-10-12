@@ -12,6 +12,10 @@ input[type=text] {
     min-width: 225px;
 }
 
+div {
+    margin-bottom: 4px;
+}
+
 #optionsExpander {
     color: blue;
     cursor: pointer;
