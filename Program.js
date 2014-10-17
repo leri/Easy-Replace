@@ -108,20 +108,31 @@ function Program() {
         skipButton.bind('click', commandFired);
         replaceButton.bind('click', commandFired);
         replaceAllButton.bind('click', commandFired);
-        chrome.extension.onMessage.addListener(function (state) {
-            switch (state.status) {
-                case 'error':
-                    errorLabel.html(state.message);
-                    disableButtons();
-                    break;
-                case 'notice':
-                    noticeLabel.html(state.message);
-                    break;
-                case 'Ok':
-                    enableButtons();
-                    break;
-            }
-        })
+        chrome.extension.onMessage.addListener(onMessageReceived);
+        chrome.commands.onCommand.addListener(onCommandReceived);
+    }
+
+    function onMessageReceived(state) {
+        switch (state.status) {
+            case 'error':
+                errorLabel.html(state.message);
+                disableButtons();
+                break;
+            case 'notice':
+                noticeLabel.html(state.message);
+                break;
+            case 'Ok':
+                enableButtons();
+                break;
+        }
+    }
+
+    function onCommandReceived(command) {
+        switch (command) {
+            case 'find_next':
+                skipButton.click();
+                break;
+        }
     }
 
     function optionsExpanderClicked(s, e) {
