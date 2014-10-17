@@ -3,7 +3,7 @@
 
     "name": "Easy Replace",
     "description": "Search/find and replace text inside browser without leaving it.",
-    "version": "0.0.0.4",
+    "version": "0.0.0.5",
 
     "browser_action": {
         "default_icon": "icon.png",
