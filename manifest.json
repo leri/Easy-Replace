@@ -15,6 +15,15 @@
             "js": ["content_script.js"]
         }
     ],
+
+    "commands": {
+        "find_next" : {
+            "suggested_key": {
+                "default": "Alt + Down"
+            },
+            "description": "Goes to the next value"
+        }
+    },
     
     "icons": {
         "16": "icon16.png",
